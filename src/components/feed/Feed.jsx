@@ -4,7 +4,7 @@ import { CreatePost } from './CreatePost';
 // import { ShareDialog } from './ShareDialog';
 import { CommentDialog } from './CommentDialog';
 import { initialPosts } from '../../data/posts';
-import { networkUsers } from '../../data/users';
+
 
 export const Feed = ({ onEngagement }) => {
   const [posts, setPosts] = useState(initialPosts);
