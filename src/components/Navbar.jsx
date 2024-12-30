@@ -40,8 +40,8 @@ const Navbar = () => {
           <li className="py-4">ABOUT</li>
         </NavLink>
 
-        <NavLink to="/contact">
-          <li className="py-4">CONTACT</li>
+        <NavLink to="/analytics">
+          <li className="py-4">ANALYTICS</li>
         </NavLink>
       </ul>
 

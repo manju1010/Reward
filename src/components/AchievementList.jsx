@@ -1,7 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
+import { achievements } from '../data/achievements'; // Ensure the path is correct
 
-export const AchievementList = ({ achievements }) => {
+export const AchievementList = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {achievements.map((achievement) => (

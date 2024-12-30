@@ -1,9 +1,15 @@
 import React from 'react';
 import * as Progress from '@radix-ui/react-progress';
+import networkUsers from '../data/networkUsers';
+
 
 const POINTS_PER_LEVEL = 1000;
 
 export const UserLevel = ({ stats }) => {
+  if (!stats) {
+    return <div></div>; // or any other fallback UI
+  }
+  
   const progress = (stats.points % POINTS_PER_LEVEL) / POINTS_PER_LEVEL * 100;
 
   return (

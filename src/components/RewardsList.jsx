@@ -1,6 +1,15 @@
 import React from 'react';
+import rewardsData from '../data/rewards.js'; // Import rewards data
 
-export const RewardsList = ({ rewards, userPoints, onRedeem }) => {
+export const RewardsList = ({ rewards = rewardsData, userPoints, onRedeem }) => {
+  // Log rewards data for debugging
+  console.log('Rewards:', rewards);
+
+  // Check if rewards is properly imported and contains data
+  if (!rewards || rewards.length === 0) {
+    return <p>No rewards available at the moment.</p>;
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {rewards.map((reward) => (
@@ -17,7 +26,11 @@ export const RewardsList = ({ rewards, userPoints, onRedeem }) => {
             <button
               onClick={() => onRedeem(reward)}
               disabled={userPoints < reward.pointsCost || !reward.available}
-              className="px-4 py-2 rounded bg-purple-600 text-white disabled:bg-gray-400"
+              className={`px-4 py-2 rounded text-white ${
+                userPoints < reward.pointsCost || !reward.available
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-purple-600 hover:bg-purple-700'
+              }`}
             >
               Redeem
             </button>

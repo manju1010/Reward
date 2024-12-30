@@ -1,4 +1,4 @@
-export const rewards = [
+const rewards = [
     {
       id: 'premium-week',
       name: 'Premium Week',
@@ -21,4 +21,6 @@ export const rewards = [
       available: true,
     },
   ];
+  
+  export default rewards; // Export as default
   
