@@ -12,6 +12,7 @@ import { DashboardPage } from './pages/DashboardPage';
 import { UserLevel } from './components/UserLevel';  // Import UserLevel component
 import networkUsers from './data/networkUsers';  // Import networkUsers data
 import Analytics from './pages/Analytics';
+import Profile from './pages/Profile';
 
 const App = () => {
   // Select the user you want to display, for example, the first user from networkUsers
@@ -23,8 +24,9 @@ const App = () => {
         <Navbar />
         
         {/* Pass userStats as a prop to UserLevel */}
-        <UserLevel stats={userStats} />
-        
+       
+        {/* <UserLevel stats={userStats} /> */}
+
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/creaters' element={<Creaters />} />
@@ -32,6 +34,7 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/analytics' element={<Analytics />} />
           <Route path='/feed' element={<FeedPage />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/dashboard' element={<DashboardPage />} />
         </Routes>
         
