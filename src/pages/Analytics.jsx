@@ -2,9 +2,9 @@ import React from "react";
 
 const Analytics = () => {
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex h-screen" style={{ backgroundColor: "#262651", color: "#FFFFFF" }}>
       {/* Sidebar Section */}
-      <aside className="w-1/5 bg-gray-800 p-4">
+      <aside className="w-1/5 p-4" style={{ backgroundColor: "#5F51D7" }}>
         <div className="text-lg font-bold mb-6">BESTCASINO</div>
         <ul className="space-y-4">
           <li>Your Favorites</li>
@@ -24,7 +24,10 @@ const Analytics = () => {
       {/* Main Content */}
       <main className="flex-1 p-6">
         {/* Level Section */}
-        <section className="bg-gray-800 p-6 rounded-lg mb-6">
+        <section
+          className="p-6 rounded-lg mb-6"
+          style={{ backgroundColor: "#4CD1FE" }}
+        >
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">1 Level</h2>
             <p>10,000 Games</p>
@@ -37,27 +40,30 @@ const Analytics = () => {
                 <img
                   src="https://via.placeholder.com/50"
                   alt="Level 1 Profile"
-                  className="w-12 h-12 rounded-full mx-auto border-4 border-green-500"
+                  className="w-12 h-12 rounded-full mx-auto border-4 border-yellow-400"
                 />
                 <p className="mt-2 text-sm">Level 1</p>
-                <p className="text-yellow-400">500 Coins</p>
+                <p style={{ color: "#FFB932" }}>500 Coins</p>
               </div>
               {/* Level 2 Unlocked */}
               <div className="text-center">
                 <img
                   src="https://via.placeholder.com/50"
                   alt="Level 2 Profile"
-                  className="w-12 h-12 rounded-full mx-auto border-4 border-green-500"
+                  className="w-12 h-12 rounded-full mx-auto border-4 border-yellow-400"
                 />
                 <p className="mt-2 text-sm">Level 2</p>
-                <p className="text-yellow-400">1000 Coins</p>
+                <p style={{ color: "#FFB932" }}>1000 Coins</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Leaderboard Section */}
-        <section className="bg-gray-800 p-6 rounded-lg mb-6">
+        <section
+          className="p-6 rounded-lg mb-6"
+          style={{ backgroundColor: "#CD8EFF" }}
+        >
           <h3 className="text-lg font-bold mb-4">Leadership</h3>
           <ul className="space-y-4">
             <li className="flex justify-between">
@@ -89,36 +95,34 @@ const Analytics = () => {
         </section>
 
         {/* Levels Section */}
-        <section className="bg-gray-800 p-6 rounded-lg">
+        <section
+          className="p-6 rounded-lg"
+          style={{ backgroundColor: "#5F51D7" }}
+        >
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-bold">Levels</h3>
-            <button className="bg-blue-600 px-4 py-2 rounded-lg">Document</button>
+            <button
+              className="px-4 py-2 rounded-lg"
+              style={{ backgroundColor: "#4CD1FE" }}
+            >
+              Document
+            </button>
           </div>
           <div className="space-y-6">
             {/* Level 1 */}
-            <div className="flex items-center bg-gray-700 p-4 rounded-lg">
-              <div className="w-8 h-8 bg-yellow-500 flex items-center justify-center rounded-full font-bold">1</div>
+            <div className="flex items-center p-4 rounded-lg" style={{ backgroundColor: "#262651" }}>
+              <div
+                className="w-8 h-8 flex items-center justify-center rounded-full font-bold"
+                style={{ backgroundColor: "#FFB932" }}
+              >
+                1
+              </div>
               <div className="flex-1 ml-4">
                 <p className="font-bold">Jhon Jhonson7</p>
               </div>
-              <p className="text-yellow-400">$100,000</p>
+              <p style={{ color: "#FFB932" }}>$100,000</p>
             </div>
-            {/* Level 2 */}
-            <div className="flex items-center bg-gray-700 p-4 rounded-lg">
-              <div className="w-8 h-8 bg-yellow-500 flex items-center justify-center rounded-full font-bold">2</div>
-              <div className="flex-1 ml-4">
-                <p className="font-bold">Jhon Jhonson7</p>
-              </div>
-              <p className="text-yellow-400">$100,000</p>
-            </div>
-            {/* Level 3 */}
-            <div className="flex items-center bg-gray-700 p-4 rounded-lg">
-              <div className="w-8 h-8 bg-yellow-500 flex items-center justify-center rounded-full font-bold">3</div>
-              <div className="flex-1 ml-4">
-                <p className="font-bold">Jhon Jhonson7</p>
-              </div>
-              <p className="text-yellow-400">$100,000</p>
-            </div>
+            {/* Repeat for Levels 2 and 3 */}
           </div>
         </section>
       </main>

@@ -25,7 +25,7 @@ const App = () => {
         
         {/* Pass userStats as a prop to UserLevel */}
        
-        {/* <UserLevel stats={userStats} /> */}
+        <UserLevel stats={userStats} />
 
         <Routes>
           <Route path='/' element={<Home />} />

@@ -1,18 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { PostCard } from './PostCard';
 import { CreatePost } from './CreatePost';
-// import { ShareDialog } from './ShareDialog';
 import { CommentDialog } from './CommentDialog';
-import { initialPosts } from '../../data/posts';
 
+const images = [
+  'https://via.placeholder.com/600x300?text=Beautiful+Landscape',
+  'https://via.placeholder.com/600x300?text=City+View',
+  'https://via.placeholder.com/600x300?text=Forest+Trail',
+  'https://via.placeholder.com/600x300?text=Ocean+Sunset',
+  'https://via.placeholder.com/600x300?text=Mountain+Peak',
+];
+
+const videos = [
+  'https://www.w3schools.com/html/mov_bbb.mp4', // Example video
+  'https://www.w3schools.com/html/movie.mp4',  // Example video
+  'https://samplelib.com/lib/preview/mp4/sample-5s.mp4', // Example video
+  'https://samplelib.com/lib/preview/mp4/sample-10s.mp4', // Example video
+];
+
+const fetchRandomImage = () => {
+  const randomIndex = Math.floor(Math.random() * images.length);
+  return images[randomIndex];
+};
+
+const fetchRandomVideo = () => {
+  const randomIndex = Math.floor(Math.random() * videos.length);
+  return videos[randomIndex];
+};
 
 export const Feed = ({ onEngagement }) => {
-  const [posts, setPosts] = useState(initialPosts);
-  const [shareDialogOpen, setShareDialogOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
   const [commentDialogOpen, setCommentDialogOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
 
-  const handleCreatePost = (content) => {
+  const fetchPosts = useCallback(() => {
+    setLoading(true);
+    const newPosts = Array.from({ length: 5 }).map((_, idx) => ({
+      id: (page * 5 + idx).toString(),
+      author: {
+        id: `user${page * 5 + idx}`,
+        name: `User ${page * 5 + idx}`,
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=User${page * 5 + idx}`,
+      },
+      content: `This is post content number ${page * 5 + idx}`,
+      media: idx % 2 === 0
+        ? { type: 'image', url: fetchRandomImage() }
+        : { type: 'video', url: fetchRandomVideo() },
+      createdAt: new Date().toISOString(),
+      likes: Math.floor(Math.random() * 100),
+      comments: 0,
+      shares: 0,
+      isLiked: false,
+      commentsList: [],
+    }));
+    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+    setLoading(false);
+  }, [page]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts, page]);
+
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !loading) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading]);
+
+  const handleCreatePost = (content, media) => {
     const newPost = {
       id: Date.now().toString(),
       author: {
@@ -21,6 +83,7 @@ export const Feed = ({ onEngagement }) => {
         avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=You',
       },
       content,
+      media,
       createdAt: new Date().toISOString(),
       likes: 0,
       comments: 0,
@@ -76,26 +139,6 @@ export const Feed = ({ onEngagement }) => {
     }
   };
 
-  const handleShare = (postId) => {
-    setSelectedPostId(postId);
-    setShareDialogOpen(true);
-  };
-
-  const handleShareSubmit = (selectedUsers) => {
-    if (selectedPostId) {
-      setPosts(posts.map(post => {
-        if (post.id === selectedPostId) {
-          return {
-            ...post,
-            shares: post.shares + selectedUsers.length,
-          };
-        }
-        return post;
-      }));
-      onEngagement('share');
-    }
-  };
-
   return (
     <div className="max-w-2xl mx-auto">
       <CreatePost onSubmit={handleCreatePost} />
@@ -106,16 +149,10 @@ export const Feed = ({ onEngagement }) => {
             post={post}
             onLike={handleLike}
             onComment={handleComment}
-            onShare={handleShare}
           />
         ))}
       </div>
-      {/* <ShareDialog
-        isOpen={shareDialogOpen}
-        onClose={() => setShareDialogOpen(false)}
-        onShare={handleShareSubmit}
-        users={networkUsers}
-      /> */}
+      {loading && <div className="text-center">Loading more posts...</div>}
       <CommentDialog
         isOpen={commentDialogOpen}
         onClose={() => setCommentDialogOpen(false)}
